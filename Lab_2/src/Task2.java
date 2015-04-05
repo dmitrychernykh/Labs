@@ -1,7 +1,5 @@
-package Lab_2;
-
 /**
- * Created by Windows on 02.04.2015.
+ * Created by Dmitry Chernykh on 02.04.2015.
  */
 public class Task2 {
     public static int reverseNumber(int value){
@@ -24,6 +22,7 @@ public class Task2 {
     }
 
     public static void main(String[] args) {
-        System.out.println(reverseNumber(1101));
+        int number = CommonUseLibrary.readUserInput("Метод, который возвращает число, записанное наоборот\nВведите натуральное число n: ");
+        System.out.println("Результат: " + reverseNumber(number));
     }
 }
