@@ -2,27 +2,33 @@
  * Created by Dmitry Chernykh on 02.04.2015.
  */
 public class Task2 {
-    public static int reverseNumber(int value){
+    public static int reverseNumber(int value) {
+
+        if (value < 10 || value > -10) return value;
 
         final int TEN = 10;
 
+        int minus = 1;
+
+        if (value < 0) minus = -1;
+
+        value *= minus;
+
         int result = 0;
         int delimiter = 10;
-        do{
+        do {
             result *= TEN;
             result += value % delimiter / (delimiter / TEN);
             delimiter *= 10;
-            if(value % delimiter == value){
+            if (value % delimiter == value) {
                 result *= TEN;
                 result += value % delimiter / (delimiter / TEN);
             }
         } while (value % delimiter != value);
 
-        return result;
-    }
+        value *= minus;
 
-    public static void main(String[] args) {
-        int number = CommonUseLibrary.readUserInput("Метод, который возвращает число, записанное наоборот\nВведите натуральное число n: ");
-        System.out.println("Результат: " + reverseNumber(number));
+        return result * minus;
     }
 }
+

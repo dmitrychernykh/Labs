@@ -14,10 +14,5 @@ public class Task1 {
 
     }
 
-    public static void main(String[] args) {
-
-        int numbersToCount = CommonUseLibrary.readUserInput("Метод, который подсчитывает количество цифр в числе\nВведите натуральное число n: ");
-
-        System.out.println("Результат: " + countNumbers(numbersToCount));
-    }
 }
+

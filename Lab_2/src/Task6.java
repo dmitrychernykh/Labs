@@ -20,17 +20,11 @@ public class Task6 {
 
         double result;
 
-        result = Math.log10(x - 4) / Math.log10(2) + Math.exp((double) Math.multiplyExact(2, a) - x);
+        result = Math.log10(x - 4) / Math.log10(2) + Math.exp((double) Math.multiplyExact(2, a) - x); //логарифм по основанию два получим через деление логарифмов  значения и основания с одинаковым основанием
 
         return result;
 
     }
 
-    public static void main(String[] args) {
-
-        int x = CommonUseLibrary.readUserInput("Метод, который вычисленяет функцию y=log2(x-4)+exp(2a-x), с проверками на область определения, а так же имеет JavaDoc\nВведите число x > 4: ");
-        int a = CommonUseLibrary.readUserInput("Введите число a: ");
-
-        System.out.println("Результат: " + calculate(x, a));
-    }
 }
+

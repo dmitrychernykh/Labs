@@ -5,13 +5,10 @@ public class Task4 {
 
     public static int factorialNumber(int n) {
 
+        if (n < 0 || n > 12) return -1;
+
         return n > 1 ? factorialNumber(--n) * (++n) : n;
 
     }
 
-    public static void main(String[] args) {
-
-        int x = CommonUseLibrary.readUserInput("Метод, который вычисленяет факториал числа n через рекурсию\nВведите натуральное число: ");
-        System.out.println("Результат: " + factorialNumber(x));
-    }
 }

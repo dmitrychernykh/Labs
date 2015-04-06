@@ -1,16 +1,8 @@
 /**
- * Created by Dmitry Chernykh on 02.04.2015.
+ * Created by Dmitry Chernykh on 06.04.2015.
+ * Poject Labs for EPAM courses
  */
 public class Task7 {
-
-    public static void main(String[] args) {
-
-        int n = CommonUseLibrary.readUserInput("Метод, который выводит все комбинации перестановок чисел от 1 до заданного n.\nВведите натуральное число n: ");
-        NumbersPermutater NP = new NumbersPermutater(n);
-        System.out.println("Результат:");
-        NP.printCombinations();
-
-    }
 
     public static class NumbersPermutater {
 

@@ -5,15 +5,13 @@ public class Task3 {
 
     public static int raiseNumber(int x, int n) {
 
+        if (x == 0 || x == 1) return x;
+
+        if (n < 0) return -1;
+
         return (n > 0) ? raiseNumber(x, --n) * x : 1;
 
     }
 
-    public static void main(String[] args) {
-
-        int x = CommonUseLibrary.readUserInput("Метод, который возводит число x в степень n через рекурсию\nВведите натуральное число x: ");
-        int n = CommonUseLibrary.readUserInput("Введите натуральное число n: ");
-        System.out.println("Результат: " + raiseNumber(x, n));
-
-    }
 }
+
