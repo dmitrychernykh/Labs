@@ -40,6 +40,7 @@
  	}
  }
 ```
+[HelloWorld.java](https://github.com/dmitrychernykh/Labs/blob/master/Lab_3/HelloWorld.java)
 ####3. Откомпилировать из командной строки и поместить в нужную папку build/classes
 ```cmd
 C:\Lab_3\JavaProjects\ShippingPrj>javac -d build/classes src/ua/kpi/pti/HelloWorld.java
@@ -71,8 +72,9 @@ public class ua.kpi.pti.HelloWorld {
 ####6. Запустить программу с информацией о том, какие грузятся классы
 ```cmd
 C:\Users\Alice\IdeaProjects\Labs\Lab_3\JavaProjects\ShippingPrj>java -verbose -classpath ./build/classes ua.kpi.pti.HelloWorld >D:\log.txt
-грузится много класов JVM и в конце уже подгружается наш класс, выполняется, затем подгружаются классы завершающие JVM.
 ```
+грузится много класов JVM и в конце уже подгружается наш класс, выполняется, затем подгружаются классы завершающие JVM.
+[log.txt](https://github.com/dmitrychernykh/Labs/blob/master/Lab_3/log.txt) - лог загрузки классов
 ### II.
 ####1. Написать класс ua.kpi.pti.PrintHello
  ```java
@@ -84,6 +86,7 @@ C:\Users\Alice\IdeaProjects\Labs\Lab_3\JavaProjects\ShippingPrj>java -verbose -c
  	}
  }
 ```
+[PrintHello.java](https://github.com/dmitrychernykh/Labs/blob/master/Lab_3/JavaProjects/ShippingPrj/PrintHello11.java)
 ####2. Модифицировать ua.kpi.pti.HelloWorld так, что бы он вызывал соответствующий. метод из ua.kpi.pti.PrintHello
  ```java
  package ua.kpi.pti;
@@ -95,6 +98,7 @@ C:\Users\Alice\IdeaProjects\Labs\Lab_3\JavaProjects\ShippingPrj>java -verbose -c
  	}
  }
 ```
+[HelloWorld.java](https://github.com/dmitrychernykh/Labs/blob/master/Lab_3/JavaProjects/ShippingPrj/HelloWorld1.java)
 ####3. Откомпилировать и запустить
 ```cmd
 \ShippingPrj>javac -sourcepath src -d build/classes src/ua/kpi/pti/HelloWorld.java
@@ -104,6 +108,7 @@ Hell in a world!!!
 ### III.
 ####1. Переместить класс PrintHello в ua.kpi.pti.pkg.PrintHello
 Для этого помещаем его в отдельную папку pkg и меняем package
+[pkg.PrintHello.java](https://github.com/dmitrychernykh/Labs/blob/master/Lab_3/JavaProjects/ShippingPrj/src/ua/kpi/pti/pkg/PrintHello.java)
 ####2. Модифицировать ua.kpi.pti.HelloWorld так, что бы он вызывал соответствующий метод из ua.kpi.pti.pkg.PrintHello
  ```java
  package ua.kpi.pti;
@@ -117,6 +122,7 @@ Hell in a world!!!
  	}
  }
 ```
+[HelloWorld.java](https://github.com/dmitrychernykh/Labs/blob/master/Lab_3/JavaProjects/ShippingPrj/src/ua/kpi/pti/HelloWorld.java)
 ####3. Откомпилировать и запустить
 ```cmd
 >javac -sourcepath ./src -d build/classes src/ua/kpi/pti/HelloWorld.java
