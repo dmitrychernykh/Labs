@@ -1,22 +1,23 @@
-﻿I. 
-
-1. Java установлена C:\Program Files\Java\jdk1.8.0_31\bin
-
-2. Узнать версию 
-
+##   Лабораторная работа No1 (Команды)
+## Цель. Познакомиться с командами javac, javap, java, javadoc
+###I.
+#### 1. Найти где установлена Java
+Java установлена C:\Program Files\Java\jdk1.8.0_31\bin
+#### 2. Узнать версию Java:
+```cmd
 >java -version
 java version "1.8.0_40"
 Java(TM) SE Runtime Environment (build 1.8.0_40-b26)
 Java HotSpot(TM) Client VM (build 25.40-b25, mixed mode, sharing)
-
-3. Узнать значение переменной окружения JAVA_HOME
-
+```
+#### 3. Узнать значение переменной окружения JAVA_HOME
+```cmd
 >echo %JAVA_HOME%
 C:\Program Files\Java\jdk1.8.0_31
-
-II.
-
-1. Попытаться откомпилировать примеры из src.zip
+```
+###II.
+#### 1. Попытаться откомпилировать примеры из src.zip
+```cmd
 >cd C:\Users\Alice\JavaProjCL
 >mkdir bin
 >javac -d bin src/Test1.java
@@ -27,23 +28,18 @@ II.
 >java -classpath ./bin Test3
 >javac -d bin src/Test4.java
 >java -classpath ./bin Test4
+```
+#### 2. Сказать, что в них неправильно и добиться их работоспособности
+* Тест1 - нельзя распологать 2 публичных класса в одном файле. Исправляется, например удалением класса TestAnother1 из файла
+* Тест2 - Имя класса должно совпадать с именем файла. Исправляем имя класса.
+* Тест3 - неверная сигнатура метода main. Исправляем аргумент метода на 'String[] args'
+* Тест4 - метод main объявлен как метод объекта а не класса. Должен быть статическим.
 
-2. Сказать, что в них неправильно и добиться их работоспособности 
-Тест1 - нельзя распологать 2 главных класса в одном файле
-Тест2 - Имя класса должно совпадать с именем файла
-Тест3 - неверный параметр передан в метод main
-Тест4 - метод мейн объявлен как метод объекта а не класса. Должен быть статическим.
-
-III.
-
-Создать следующую иерархию папок:
-
-Lab_1/
-+ src/ - исходный код
-+ build/
- + classes/ - откомпилированные классы
-+ docs/ - JavaDoc
-
+###### Создать следующую иерархию папок:
+* src/ - исходный код
+ * classes/ - откомпилированные классы
+* docs/ - JavaDoc'
+```cmd
 >cd C:\Users\Alice\IdeaProjects\Labs
 >mkdir Lab_1
 >cd Lab_1
@@ -53,9 +49,10 @@ Lab_1/
 >cd build
 >mkdir classes
 >cd ..
-
-1. Написать класс Person, в котором хранилась бы имя, фамилия и дата рождения человека (в виде строки). Поместить файл с классом в папку src.
-
+```
+###III.
+#### 1. Написать класс Person, в котором хранилась бы имя, фамилия и дата рождения человека (в виде строки). Поместить файл с классом в папку src.
+```Java
 public class Person { 
 	private String name;
 	private String surname;
@@ -76,12 +73,10 @@ public class Person {
 	public int getAge(){
 		return age;
 	}
-  
 }
-
-
-2. Написать класс PersonRunner в котором задавались бы атрибуты для человека, а затем выводились на экран
-
+```
+#### 2. Написать класс PersonRunner в котором задавались бы атрибуты для человека, а затем выводились 
+```Java
 public class PersonRunner { 
 
 	public static void main(String[] args) { 
@@ -89,28 +84,25 @@ public class PersonRunner {
     	Person newPerson = new Person("Ross", "Geller", 28);
 
     	System.out.println("Name:\t\t"+newPerson.getName());
-		System.out.println("Surname:\t"+newPerson.getSurName());
-		System.out.println("Age:\t\t"+newPerson.getAge());
-
+		  System.out.println("Surname:\t"+newPerson.getSurName());
+		  System.out.println("Age:\t\t"+newPerson.getAge());
   	}
-  
 }
-
-3. Откомпилировать PersonRunner из командной строки так, чтобы файлы *.class писались в папку build/classes
-
+```
+#### 3. Откомпилировать PersonRunner из командной строки так, чтобы файлы *.class писались в папку 
+```cmd
 >javac -d build/classes src/Person.java
 >javac -sourcepath src -d build/classes src/PersonRunner.java
-
-4. Запустить программу.
-
->java -classpath ./build/classes PersonRun
-ner
+```
+#### 4. Запустить программу.
+```cmd
+>java -classpath ./build/classes PersonRunner
 Name:           Ross
 Surname:        Geller
 Age:            28
-
-5. Откомпилировать еще раз с выводом информации о компиляции, посмотреть полученный байт-код
-
+```
+#### 5. Откомпилировать еще раз с выводом информации о компиляции, посмотреть полученный байт-код
+```cmd
 >javap -c -classpath ./build/classes PersonRunner
 Compiled from "PersonRunner.java"
 public class PersonRunner {
@@ -164,13 +156,14 @@ public class PersonRunner {
       95: invokevirtual #13                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
       98: return
 }
-
-6. Запустить программу с информацией о том, какие грузятся классы
-
+```
+#### 6. Запустить программу с информацией о том, какие грузятся классы
+```cmd
 >java -verbose -classpath ./build/classes PersonRunner>D:\log.txt
+```
+[log.txt](https://github.com/dmitrychernykh/Labs/blob/master/Lab_1/log.txt) прилагается
 
-log.txt прилагается
-
+```
 >javap -sysinfo -classpath ./build/classes PersonRunner
 Classfile /C:/Users/Alice/IdeaProjects/Labs/Lab_1/build/classes/PersonRunner.class
   Last modified 05.04.2015; size 895 bytes
@@ -180,11 +173,12 @@ public class PersonRunner {
   public PersonRunner();
   public static void main(java.lang.String[]);
 }
-
-7. Сгенерировать JavaDoc в папку docs
+```
+#### 7. Сгенерировать JavaDoc в папку docs
 
 подготовка: добавим каталоги пакетов и заголовок в файлы классов.
 
+```cmd
 >cd src
 src>mkdir dmn\chernykh
 src>move Person.java dmn\chernykh
@@ -223,3 +217,4 @@ Generating docs\allclasses-noframe.html...
 Generating docs\index.html...
 Generating docs\help-doc.html...
 3 warnings
+```
