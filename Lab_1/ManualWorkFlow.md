@@ -162,8 +162,7 @@ public class PersonRunner {
 >java -verbose -classpath ./build/classes PersonRunner>D:\log.txt
 ```
 [log.txt](https://github.com/dmitrychernykh/Labs/blob/master/Lab_1/log.txt) прилагается
-
-```
+```cmd
 >javap -sysinfo -classpath ./build/classes PersonRunner
 Classfile /C:/Users/Alice/IdeaProjects/Labs/Lab_1/build/classes/PersonRunner.class
   Last modified 05.04.2015; size 895 bytes
@@ -218,3 +217,4 @@ Generating docs\index.html...
 Generating docs\help-doc.html...
 3 warnings
 ```
+[Result JavaDocs](https://github.com/dmitrychernykh/Labs/tree/master/Lab_1/docs) прилагается
