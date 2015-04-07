@@ -4,7 +4,7 @@
 public class Task2 {
     public static int reverseNumber(int value) {
 
-        if (value < 10 || value > -10) return value;
+        if (value > -10 && value < 10) return value;
 
         final int TEN = 10;
 

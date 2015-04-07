@@ -20,7 +20,7 @@ public class Task2Runner {
         result = Task2.reverseNumber(paramN);
         System.out.println("Тест 2: (n = " + paramN + "); Результат: " + result + "; Ожидаемый результат: " + checkResult + " Статус: " + (result == checkResult));
         paramN = -1247982;
-        checkResult = 2897421;
+        checkResult = -2897421;
         result = Task2.reverseNumber(paramN);
         System.out.println("Тест 3: (n = " + paramN + "); Результат: " + result + "; Ожидаемый результат: " + checkResult + " Статус: " + (result == checkResult));
         paramN = 0;
@@ -32,7 +32,7 @@ public class Task2Runner {
         result = Task2.reverseNumber(paramN);
         System.out.println("Тест 5: (n = " + paramN + "); Результат: " + result + "; Ожидаемый результат: " + checkResult + " Статус: " + (result == checkResult));
         paramN = -9;
-        checkResult = 9;
+        checkResult = -9;
         result = Task2.reverseNumber(paramN);
         System.out.println("Тест 6: (n = " + paramN + "); Результат: " + result + "; Ожидаемый результат: " + checkResult + " Статус: " + (result == checkResult));
 

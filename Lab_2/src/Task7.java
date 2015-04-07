@@ -9,10 +9,25 @@ public class Task7 {
         private final int TEN = 10;
         private int initNumer;
         private int value;
-
+        private int nextValue;
 
         NumbersPermutater(int initNumer) {
             this.initNumer = initNumer;
+
+            value = 0;
+            int multipier = 1;
+            int border = 1;
+            int i = initNumer;
+
+            while (border <= i) {
+                value += i * multipier;
+                multipier *= 10;
+                i--;
+            }
+        }
+
+        public int getValue() {
+            return value;
         }
 
         public int permutateNumber(int n) {
@@ -48,9 +63,9 @@ public class Task7 {
 
             result += rightPart;
 
-            value = result;
+            nextValue = result;
 
-            return result;
+            return nextValue - value;
         }
 
         public void printCombinations() {
@@ -60,26 +75,45 @@ public class Task7 {
                 return;
             }
 
-            value = 0;
             int multipier = 1;
             int border = 1;
             int i = initNumer;
 
-            while (border <= i) {
+            /*while (border <= i) {
                 value += i * multipier;
                 multipier *= 10;
                 i--;
-            }
+            }*/
 
-            System.out.println("(" + value + ")");
-
-            for (border = 2; border <= initNumer; border++) {
-                for (int j = 1; j <= border; j++) {
-                    int n = initNumer - j;
-                    if (n == 0) n = initNumer - 1;
-                    System.out.println("(" + permutateNumber(n) + ")");
+            while (true) { //http://goo.gl/fkAaEo - код на с++
+                System.out.println("(" + value + ")");
+                for (i = initNumer - 1; i > 0; i--) {
+                    if (permutateNumber(i) > 0) {
+                        value = nextValue;
+                        System.out.println("(" + value + ")");
+                        break;
+                    }
                 }
+                if (i == 0) break;
+
+                for (int j = i + 1; j < initNumer - 1; j++) {
+                    if (permutateNumber(i) > 0) {
+                        value = nextValue;
+//                        System.out.println("(" + value + ")");
+                        break;
+                    }
+                }
+
+
             }
+
+//            for (border = 2; border <= initNumer; border++) {
+//                for (int j = 1; j <= border; j++) {
+//                    int n = initNumer - j;
+//                    if (n == 0) n = initNumer - 1;
+//                    System.out.println("(" + permutateNumber(n) + ")");
+//                }
+//            }
 
         }
     }
