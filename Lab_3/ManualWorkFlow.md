@@ -1,34 +1,37 @@
-Лабораторная работа №3 (Пакеты)
-Цель. Работа с пакетами
-I.
-1. Создать из командной строки иерархию директорий для проекта из задания — по аналогии с
-примером:
+##   Лабораторная работа №3 (Пакеты)
+## Цель. Работа с пакетами
+###I.
+#### 1. Создать из командной строки иерархию директорий для проекта из задания — по аналогии с примером:
++ **ShippingPrj/** - название проекта 
+ + src/ - исходный код
+ + build/classes
+ + lib - библиотеки
+ + docs - сгенерированная документация
 
-JavaProjects/ - проекты
- + ShippingPrj/ - название проекта
-  + src/ - исходный код
-   + shipping/ - пакет
-    -domain/ - пакет
-    -gui/ - пакет
-    -reports/ - пакет
-  + build
-   + classes/ - откомпилированные классы
-    + shipping/ - пакет
-     -domain/ - пакет
-     -gui/ - пакет
-     -reports/ - пакет
-  + lib - библиотеки
-  + docs/ - сгенерированная документация
+**src/**
++ shipping/ - пакет
+ + domain/ - пакет
+ + gui/ - пакет
+ + reports/ - пакет
 
-чтобы сделать это в одно нажатие установим Ant и создадим в папке где будет лежать JavaProjects файл build.xml
+**build/classes/** - откомпилированные классы
++ shipping/ - пакет
+ + domain/ - пакет
+ + gui/ - пакет
+ + reports/ - пакет
+   
+чтобы сделать это в одно нажатие установим Ant и создадим в папке где будет лежать JavaProjects файл [build.xml](https://github.com/dmitrychernykh/Labs/blob/master/Lab_3/build.xml)
 
-выполним команду >ant
+выполним команду 
+```cmd
+>ant 
+```
 и структура каталогов готова
-
-2. Написать класс ua.kpi.pti.HelloWorld
-
+####2. Написать класс ua.kpi.pti.HelloWorld
+```cmd
 \src>mkdir ua\kpi\pti
-
+```
+```java
  package ua.kpi.pti;
 
  public class HelloWorld{
@@ -36,18 +39,18 @@ JavaProjects/ - проекты
  		System.out.println("Hell in a world!!!");
  	}
  }
-
-3. Откомпилировать из командной строки и поместить в нужную папку build/classes
-
+```
+####3. Откомпилировать из командной строки и поместить в нужную папку build/classes
+```cmd
 C:\Lab_3\JavaProjects\ShippingPrj>javac -d build/classes src/ua/kpi/pti/HelloWorld.java
-
-4. Запустить программу
-
+```
+####4. Запустить программу
+```cmd
 C:\Lab_3\JavaProjects\ShippingPrj>java -classpath ./build/classes ua.kpi.pti.HelloWorld
 Hell in a world!!!
-
-5. Откомпилировать с выводом информации о компиляции, посмотреть байт-код
-
+```
+####5. Откомпилировать с выводом информации о компиляции, посмотреть байт-код
+```cmd
 C:\Lab_3\JavaProjects\ShippingPrj>javap -c -classpath ./build/classes ua.kpi.pti.HelloWorld
 Compiled from "HelloWorld.java"
 public class ua.kpi.pti.HelloWorld {
@@ -64,13 +67,15 @@ public class ua.kpi.pti.HelloWorld {
        5: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V
        8: return
 }
-
-6. Запустить программу с информацией о том, какие грузятся классы
+```
+####6. Запустить программу с информацией о том, какие грузятся классы
+```cmd
 C:\Users\Alice\IdeaProjects\Labs\Lab_3\JavaProjects\ShippingPrj>java -verbose -classpath ./build/classes ua.kpi.pti.HelloWorld >D:\log.txt
 грузится много класов JVM и в конце уже подгружается наш класс, выполняется, затем подгружаются классы завершающие JVM.
-
-II.
-1. Написать класс ua.kpi.pti.PrintHello
+```
+### II.
+####1. Написать класс ua.kpi.pti.PrintHello
+ ```java
  package ua.kpi.pti;
 
  public class PrintHello{
@@ -78,8 +83,9 @@ II.
  		System.out.println("Hell in a world!!!");
  	}
  }
-
-2. Модифицировать ua.kpi.pti.HelloWorld так, что бы он вызывал соответствующий. метод из ua.kpi.pti.PrintHello
+```
+####2. Модифицировать ua.kpi.pti.HelloWorld так, что бы он вызывал соответствующий. метод из ua.kpi.pti.PrintHello
+ ```java
  package ua.kpi.pti;
 
  public class HelloWorld{
@@ -88,17 +94,18 @@ II.
  		PH.printHello();
  	}
  }
-
-3. Откомпилировать и запустить
+```
+####3. Откомпилировать и запустить
+```cmd
 \ShippingPrj>javac -sourcepath src -d build/classes src/ua/kpi/pti/HelloWorld.java
 \ShippingPrj>java -classpath ./build/classes ua.kpi.pti.HelloWorld
 Hell in a world!!!
-III.
-1. Переместить класс PrintHello в ua.kpi.pti.pkg.PrintHello
+```
+### III.
+####1. Переместить класс PrintHello в ua.kpi.pti.pkg.PrintHello
 Для этого помещаем его в отдельную папку pkg и меняем package
-2. Модифицировать ua.kpi.pti.HelloWorld так, что бы он вызывал соответствующий метод из
-ua.kpi.pti.pkg.PrintHello
- 
+####2. Модифицировать ua.kpi.pti.HelloWorld так, что бы он вызывал соответствующий метод из ua.kpi.pti.pkg.PrintHello
+ ```java
  package ua.kpi.pti;
 
  import ua.kpi.pti.pkg.PrintHello;
@@ -109,24 +116,28 @@ ua.kpi.pti.pkg.PrintHello
  		PH.printHello();
  	}
  }
-
-3. Откомпилировать и запустить
+```
+####3. Откомпилировать и запустить
+```cmd
 >javac -sourcepath ./src -d build/classes src/ua/kpi/pti/HelloWorld.java
 >java -classpath ./build/classes ua.kpi.pti.HelloWorld
 Hell in a world!!!
-IV.
-1. Создать jar-файл с ua.kpi.pti.pkg.PrintHello и поместить его в lib
-
+```
+### IV.
+####1. Создать jar-файл с ua.kpi.pti.pkg.PrintHello и поместить его в lib
+```cmd
 >jar cvf .\lib\PrintHello.jar -C build\classes ua\kpi\pti\pkg\
 added manifest
 adding: ua/kpi/pti/pkg/(in = 0) (out= 0)(stored 0%)
 adding: ua/kpi/pti/pkg/PrintHello.class(in = 428) (out= 297)(deflated 30%)
-
-2. Добиться работоспособности
+```
+####2. Добиться работоспособности
+```cmd
 >javac -classpath lib/PrintHello.jar -d build/classes src/ua/kpi/pti/HelloWorld.java
 >java -cp ./build/classes;./lib/PrintHello.jar ua.kpi.pti.HelloWorld
 Hell in a world!!!
-
+```
+```cmd
 >javap -verbose -cp ./build/classes;./lib/PrintHello.jar ua.kpi.pti.HelloWorld
 Classfile /C:/Users/Alice/IdeaProjects/Labs/Lab_3/JavaProjects/ShippingPrj/build/classes/ua/kpi/pti/HelloWorld.class
   Last modified 07.04.2015; size 355 bytes
@@ -187,18 +198,19 @@ Constant pool:
         line 20: 12
 }
 SourceFile: "HelloWorld.java"
-
-3. Показать, что ua.kpi.pti.pkg.PrintHello действительно грузиться из библиотеки
-
+```
+####3. Показать, что ua.kpi.pti.pkg.PrintHello действительно грузиться из библиотеки
+```cmd
 >java -verbose -cp ./build/classes;./lib/PrintHello.jar ua.kpi.pti.HelloWorld
-...
+[много классов....]
 [Loaded ua.kpi.pti.pkg.PrintHello from file:/C:/Users/Alice/IdeaProjects/Labs/La
 b_3/JavaProjects/ShippingPrj/lib/PrintHello.jar]
 Hell in a world!!!
-
-V.
-Сгенерировать JavaDoc
-
+```
+видим __from file:/C:/.../lib/PrintHello.jar__
+### V.
+####Сгенерировать JavaDoc
+```cmd
 >javadoc -d docs -charset utf-8  -sourcepath src;lib/PrintHello.jar -author -subpackages ua.kpi.pti
 Loading source files for package ua.kpi.pti...
 Loading source files for package ua.kpi.pti.pkg...
@@ -229,3 +241,5 @@ Generating docs\index.html...
 Generating docs\overview-summary.html...
 Generating docs\help-doc.html...
 1 warning
+```
+[Result JavaDocs](https://github.com/dmitrychernykh/Labs/tree/master/Lab_3/JavaProjects/ShippingPrj/docs) прилагается
