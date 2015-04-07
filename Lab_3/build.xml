@@ -1,0 +1,21 @@
+<project name="Lab_3.ShippingPrj" default="all">
+    <description>Work with ant and packages</description>
+    <target name="make.dirs" description="Make a dir">
+        <mkdir dir="JavaProjects/ShippingPrj/src" description="проекты/название проекта/исходный код"/>
+        <mkdir dir="JavaProjects/ShippingPrj/src/shipping" description="пакет"/>
+        <mkdir dir="JavaProjects/ShippingPrj/src/shipping/domain" description="пакет"/>
+        <mkdir dir="JavaProjects/ShippingPrj/src/shipping/gui" description="пакет"/>
+        <mkdir dir="JavaProjects/ShippingPrj/src/shipping/reports" description="пакет"/>
+        <mkdir dir="JavaProjects/ShippingPrj/build" description="проекты/название проекта/builds"/>
+        <mkdir dir="JavaProjects/ShippingPrj/build/classes" description="откомпилированные классы"/>
+        <mkdir dir="JavaProjects/ShippingPrj/build/classes/shipping" description="пакет"/>
+        <mkdir dir="JavaProjects/ShippingPrj/build/classes/shipping/domain" description="пакет"/>
+        <mkdir dir="JavaProjects/ShippingPrj/build/classes/shipping/gui" description="пакет"/>
+        <mkdir dir="JavaProjects/ShippingPrj/build/classes/shipping/reports" description="пакет"/>
+        <mkdir dir="JavaProjects/ShippingPrj/lib" description="проекты/название проекта/библиотеки"/>
+        <mkdir dir="JavaProjects/ShippingPrj/docs" description="проекты/название проекта/сгенерированная документация"/>
+    </target>
+    <target name="all" description="Do the build" depends="make.dirs">
+        <echo>I'm OK!</echo>
+    </target>
+</project>
