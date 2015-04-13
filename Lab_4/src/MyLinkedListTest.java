@@ -27,7 +27,7 @@ public class MyLinkedListTest {
         printListInfo(myList, "[5, 12, 5, 3, 11, 10, 9, 29, 35, 99, 100]", 11, "(!) Удаление первого элемента");
         myList.removeLastElement();
         printListInfo(myList, "[5, 12, 5, 3, 11, 10, 9, 29, 35, 99]", 10, "(!) Удаление 1 последнего элемента");
-        printListInfo(myList, "[5, 12, 5, 11, 10, 9, 29, 99]", 8, "(!) Удаление элемента [" + myList.remove(3) + "] по индоксу 3 и [" + myList.remove(7) + "] по индоксу 7");
+        printListInfo(myList, "[5, 12, 5, 11, 10, 9, 29, 99]", 8, "(!) Удаление элемента [" + myList.remove(3) + "] по индексу 3 и [" + myList.remove(7) + "] по индексу 7");
         printListInfo(myList, "[5, 12, 5, 11, 10, 9, 29]", 7, "(!) Удаление последнего элемента [" + myList.removeLast() + "]");
         myList.set(2, 33);
         printListInfo(myList, "[5, 12, 33, 11, 10, 9, 29]", 7, "(!) Изменение 3-го элемента");

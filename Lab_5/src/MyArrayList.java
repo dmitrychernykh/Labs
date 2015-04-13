@@ -33,7 +33,7 @@ public class MyArrayList {
      * вставляет элемент в конец списка
      */
     public void add(Object e) {
-        ensureCapacity(size);
+        ensureCapacity(size + 1);
         arrayData[size] = e;
         size++;
     }
@@ -42,15 +42,20 @@ public class MyArrayList {
 
         if (index < 0 || index > size) throw new IndexOutOfBoundsException("Wrong index:" + index);
 
-        ensureCapacity(size);
+        if (index == size) {
+            add(e);
+            return;
+        }
+
+        ensureCapacity(size + 1);
         System.arraycopy(arrayData, index, arrayData, index + 1, size - index);
         arrayData[index] = e;
         size++;
     }
 
-    Object get(int index) {
+    public Object get(int index) {
 
-        if (index < 0 || index > size) throw new IndexOutOfBoundsException("Wrong index:" + index);
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException("Wrong index:" + index);
 
         return arrayData[index];
     }
@@ -58,9 +63,9 @@ public class MyArrayList {
     /**
      * при удалении размер массива должен уменьшаться
      */
-    Object remove(int index) {
+    public Object remove(int index) {
 
-        if (index < 0 || index > size) throw new IndexOutOfBoundsException("Wrong index:" + index);
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException("Wrong index:" + index);
 
         Object ob = get(index);
 
@@ -70,7 +75,7 @@ public class MyArrayList {
             System.arraycopy(arrayData, index + 1, arrayData, index, size - index);
 
         size--;
-        if (arrayData.length >> 1 - size > 0)
+        if ((arrayData.length >> 1) - size > 0)
             trimArray();
 
         return ob;
@@ -79,9 +84,9 @@ public class MyArrayList {
     /**
      * изменяет значение элемента
      */
-    void set(int index, Object element) {
+    public void set(int index, Object element) {
 
-        if (index < 0 || index > size) throw new IndexOutOfBoundsException("Wrong index:" + index);
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException("Wrong index:" + index);
 
         arrayData[index] = element;
     }
@@ -89,7 +94,7 @@ public class MyArrayList {
     /**
      * Appends all of the elements to the end of this list
      */
-    void addAll(Object[] c) {
+    public void addAll(Object[] c) {
         int numNew = c.length;
         ensureCapacity(size + numNew);
         System.arraycopy(c, 0, arrayData, size, numNew);
@@ -99,11 +104,15 @@ public class MyArrayList {
     /**
      * Inserts all of the elements into this list, starting at the specified position
      */
-    void addAll(int index, Object[] c) {
+    public void addAll(int index, Object[] c) {
         if (index < 0 || index > size) throw new IndexOutOfBoundsException("Wrong index:" + index);
+        if (index == size) {
+            addAll(c);
+            return;
+        }
         int numNew = c.length;
         ensureCapacity(size + numNew);
-        System.arraycopy(arrayData, index, arrayData, index + numNew, size - numNew);
+        System.arraycopy(arrayData, index, arrayData, index + numNew, size - index);
         System.arraycopy(c, 0, arrayData, index, numNew);
         size += numNew;
     }
@@ -112,13 +121,13 @@ public class MyArrayList {
      * Increases the capacity of this ArrayList instance, if necessary, to
      * ensure that it can hold at least the number of elements specified by the minimum capacity argument.
      */
-    void ensureCapacity(int minCapacity) {
+    public void ensureCapacity(int minCapacity) {
         if (minCapacity - this.arrayData.length > 0) {
             makeGrowing(minCapacity);
         }
     }
 
-    public int Size() {
+    public int size() {
         return size;
     }
 
@@ -142,10 +151,24 @@ public class MyArrayList {
             else {
                 Object[] newArrayData = new Object[size];
 
-                System.arraycopy(arrayData, 0, newArrayData, 0, arrayData.length);
+                System.arraycopy(arrayData, 0, newArrayData, 0, newArrayData.length);
 
                 this.arrayData = newArrayData;
             }
         }
+    }
+
+    public int getLengthOfArray() {
+        return arrayData.length;
+    }
+
+    @Override
+    public String toString() {
+
+        String result = "";
+        for (int i = 0; i < size; i++) {
+            result = result.concat(((result.isEmpty()) ? "" : ", ").concat(arrayData[i].toString()));
+        }
+        return "[" + result + "]";
     }
 }
