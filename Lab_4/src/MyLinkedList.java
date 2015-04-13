@@ -4,9 +4,9 @@
  */
 public class MyLinkedList {
 
-    Element first, last;
+    private Element first, last;
 
-    int size = 0;
+    private int size = 0;
 
     MyLinkedList() {
 
@@ -21,8 +21,8 @@ public class MyLinkedList {
         } else {
             last.setNext(new Element(e, null));
             last = last.next();
+            size++;
         }
-        size++;
     }
 
     public void addElement(Element e) {
@@ -49,8 +49,8 @@ public class MyLinkedList {
         else {
             Element prev = getElement(index - 1);
             prev.setNext(new Element(element, prev.next()));
+            size++;
         }
-        size++;
     }
 
     public void addFirst(Integer e) {
@@ -75,7 +75,7 @@ public class MyLinkedList {
         Element x = first;
 
         for (int i = 0; i < index; i++)
-            x = x.next;
+            x = x.next();
         return x;
 
     }
@@ -103,7 +103,7 @@ public class MyLinkedList {
 
         Element prev = getElement(index - 1);
         Integer value = prev.next().getElement();
-        prev.setNext(prev.next());
+        prev.setNext(prev.next().next());
         size--;
         if (size == 0) {
             first = null;
@@ -114,6 +114,8 @@ public class MyLinkedList {
     }
 
     public Integer removeFirst() {
+
+        if (size == 0) getElement(0);
 
         Integer value = first.getElement();
         first = first.next();
@@ -128,6 +130,8 @@ public class MyLinkedList {
 
     public Element removeFirstElement() {
 
+        if (size == 0) getElement(0);
+
         Element el = first;
         first = first.next();
         size--;
@@ -141,28 +145,34 @@ public class MyLinkedList {
 
     public Integer removeLast() {
 
+        if (size == 0) getElement(0);
+
         Integer value = last.getElement();
-        last = getElement(size - 2);
-        last.setNext(null);
-        size--;
-        if (size == 0) {
+        if (size == 1) {
             first = null;
             last = null;
+        } else {
+            last = getElement(size - 2);
+            last.setNext(null);
         }
+        size--;
         return value;
 
     }
 
     public Element removeLastElement() {
 
+        if (size == 0) getElement(0);
+
         Element el = last;
-        last = getElement(size - 2);
-        last.setNext(null);
-        size--;
-        if (size == 0) {
+        if (size == 1) {
             first = null;
             last = null;
+        } else {
+            last = getElement(size - 2);
+            last.setNext(null);
         }
+        size--;
         return el;
 
     }
@@ -188,6 +198,9 @@ public class MyLinkedList {
      * поиск индекса по значению
      */
     public int indexOf(Integer o) {
+
+        if (size == 0) return -1;
+
         Element e = first;
         int index = 0;
 
@@ -203,22 +216,33 @@ public class MyLinkedList {
 
     }
 
+    @Override
+    public String toString() {
+
+        Element printEl = getFirstElement();
+        String result = "";
+        while (printEl != null) {
+            result = result.concat(((result.isEmpty()) ? "" : ", ").concat(printEl.getElement().toString()));
+            printEl = printEl.next();
+        }
+        return "[" + result + "]";
+    }
 }
 
 class Element {
-    Integer item;
-    Element next;
+    private Integer item;
+    private Element next;
 
-    Element(Integer element, Element next) {
+    public Element(Integer element, Element next) {
         this.item = element;
         this.next = next;
     }
 
-    boolean hasNext() {
+    public boolean hasNext() {
         return next != null;
     }
 
-    Element next() {
+    public Element next() {
         return next;
     }
 
@@ -226,15 +250,15 @@ class Element {
         this.next = next;
     }
 
-    void remove() {
+    public void remove() {
 
     }
 
-    Integer getElement() {
+    public Integer getElement() {
         return item;
     }
 
-    void setElement(Integer item) {
+    public void setElement(Integer item) {
         this.item = item;
     }
 }

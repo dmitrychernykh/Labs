@@ -4,9 +4,9 @@
  */
 public class MyQueue {
 
-    MyLinkedList list;
+    private MyLinkedList list;
 
-    MyQueue() {
+    public MyQueue() {
         list = new MyLinkedList();
     }
 
@@ -20,15 +20,23 @@ public class MyQueue {
     /**
      * взять без удаления, элемент из очереди
      */
-    Element peek() {
+    public Element peek() {
         return list.getFirstElement();
     }
 
     /**
      * взять и удалить элемент из очереди
      */
-    Element poll() {
+    public Element poll() {
         return list.removeFirstElement();
     }
 
+    @Override
+    public String toString() {
+        return list.toString();
+    }
+
+    public int size() {
+        return list.size();
+    }
 }

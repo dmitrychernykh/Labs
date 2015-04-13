@@ -4,7 +4,7 @@
  */
 public class MyStack {
 
-    MyLinkedList list;
+    private MyLinkedList list;
 
     MyStack() {
         list = new MyLinkedList();
@@ -20,8 +20,16 @@ public class MyStack {
     /**
      * взять элемент из стека
      */
-    Element pop() {
+    public Element pop() {
         return list.removeLastElement();
     }
 
+    public int size() {
+        return list.size();
+    }
+
+    @Override
+    public String toString() {
+        return list.toString();
+    }
 }
