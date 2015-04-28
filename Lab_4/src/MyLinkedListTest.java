@@ -5,11 +5,7 @@
 public class MyLinkedListTest {
     public static void main(String[] args) {
 
-        MyLinkedList myList = new MyLinkedList();
-
-        myList.add(5);
-        myList.add(5);
-        myList.add(3);
+        MyLinkedList myList = new MyLinkedList(new Integer[]{5, 5, 3});
         myList.add(11);
         myList.add(9);
         myList.add(29);

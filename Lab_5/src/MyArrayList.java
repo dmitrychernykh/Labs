@@ -1,8 +1,10 @@
+import java.util.RandomAccess;
+
 /**
  * Created by Dmitry Chernykh on 06.04.2015.
  * Poject Labs for EPAM courses
  */
-public class MyArrayList {
+public class MyArrayList implements MyList, RandomAccess {
 
     private static final int DEFAULT_CAPACITY = 10;
 
@@ -20,6 +22,16 @@ public class MyArrayList {
             throw new IllegalArgumentException("Illegal Capacity: " +
                     initialCapacity);
         }
+    }
+
+    public MyArrayList(Object... c) {
+        if (c.length > 0) {
+            this.arrayData = new Object[c.length];
+        } else {
+            throw new IllegalArgumentException("Illegal argument: " +
+                    c);
+        }
+        addAll(c);
     }
 
     /**
@@ -89,6 +101,11 @@ public class MyArrayList {
         if (index < 0 || index >= size) throw new IndexOutOfBoundsException("Wrong index:" + index);
 
         arrayData[index] = element;
+    }
+
+    @Override
+    public int indexOf(Object o) {
+        return MyCollections.binarySearch(this, (Integer) o);
     }
 
     /**
@@ -162,6 +179,11 @@ public class MyArrayList {
         return arrayData.length;
     }
 
+    public void clear() {
+        size = 0;
+        trimArray();
+    }
+
     @Override
     public String toString() {
 
@@ -170,5 +192,9 @@ public class MyArrayList {
             result = result.concat(((result.isEmpty()) ? "" : ", ").concat(arrayData[i].toString()));
         }
         return "[" + result + "]";
+    }
+
+    public Object[] toArray() {
+        return arrayData.clone();
     }
 }

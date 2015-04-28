@@ -2,7 +2,7 @@
  * Created by Dmitry Chernykh on 05.04.2015.
  * Poject Labs for EPAM courses
  */
-public class MyLinkedList {
+public class MyLinkedList implements MyList, Stack, Queue {
 
     private Element first, last;
 
@@ -12,10 +12,15 @@ public class MyLinkedList {
 
     }
 
+    MyLinkedList(Object... args) {
+        addAll(args);
+    }
+
     /**
      * вставляет элемент в конец списка
      */
-    public void add(Integer e) {
+    @Override
+    public void add(Object e) {
         if (size == 0) {
             addFirst(e);
         } else {
@@ -41,7 +46,8 @@ public class MyLinkedList {
     /**
      * вставляет элемент на указанную позицию, сдвигая остальные элементы
      */
-    public void add(int index, Integer element) {
+    @Override
+    public void add(int index, Object element) {
         if (index == 0)
             addFirst(element);
         else if (index == size - 1)
@@ -53,22 +59,75 @@ public class MyLinkedList {
         }
     }
 
-    public void addFirst(Integer e) {
+    public void insertElement(int index, Element node) {
+
+        if (index == 0) {
+            node.setNext(first);
+            first = node;
+            size++;
+            return;
+        } else if (index == size - 1) {
+            addElement(node);
+            return;
+        }
+
+        Element prev = getElement(index - 1);
+        node.setNext(prev.next());
+        prev.setNext(node);
+        size++;
+
+    }
+
+    public void addFirst(Object e) {
         first = new Element(e, first);
         if (last == null) last = first;
         size++;
     }
 
-    public void addLast(Integer e) {
+    public void addLast(Object e) {
         add(e);
     }
 
+    @Override
+    public void addAll(Object[] c) {
+        for (int i = 0; i < c.length; i++) {
+            add(c[i]);
+        }
+    }
 
-    public Integer get(int index) {
+    @Override
+    public void addAll(int index, Object[] c) {
+        if (!(index >= 0 && index <= size))
+            throw new IndexOutOfBoundsException("no such element with index: " + index);
+
+        int i = 0;
+        if (index == size) {
+            addAll(c);
+            return;
+        } else if (index == 0) {
+            addFirst(c[i++]);
+            index++;
+        }
+
+        Element tmpLast = last;
+        last = getElement(index - 1);
+        Element tmpNodes = last.next();
+        size -= (index + 1);
+
+        while (i < c.length) {
+            add(c[i++]);
+        }
+        last.setNext(tmpNodes);
+        last = tmpLast;
+        size += c.length + index + 1;
+    }
+
+    @Override
+    public Object get(int index) {
         return getElement(index).getElement();
     }
 
-    private Element getElement(int index) {
+    public Element getElement(int index) {
         if (!(index >= 0 && index < size))
             throw new IndexOutOfBoundsException("no such element with index: " + index);
 
@@ -80,11 +139,16 @@ public class MyLinkedList {
 
     }
 
-    public Integer getFirst() {
+    public Object getFirst() {
         return first.getElement();
     }
 
-    public Integer getLast() {
+    public void setFirst(Element newFirst) {
+        first = newFirst;
+        refreshLastElement();
+    }
+
+    public Object getLast() {
         return last.getElement();
     }
 
@@ -92,39 +156,71 @@ public class MyLinkedList {
         return first;
     }
 
+    public void setFirstElement(Element newFirst) {
+        if (first != null) newFirst.setNext(first.next());
+        first = newFirst;
+        refreshLastElement();
+    }
+
+    /**
+     * изменяет значение элемента
+     */
+    @Override
+    public void set(int index, Object element) {
+
+        Element el = getElement(index);
+        el.setElement(element);
+
+    }
+
+    private void refreshLastElement() {
+        Element newLast = first;
+        while (newLast.hasNext()) newLast = newLast.next();
+        last = newLast;
+    }
+
+    public void setElement(int index, Element newElm) {
+        if (index == 0) {
+            setFirstElement(newElm);
+            return;
+        }
+        Element nodeParent = getElement(index - 1);
+        newElm.setNext(nodeParent.next());
+        nodeParent.setNext(newElm);
+        if (index + 1 == size()) {
+            refreshLastElement();
+        }
+    }
+
     public Element getLastElement() {
         return last;
     }
 
-    public Integer remove(int index) {
+    @Override
+    public Object remove(int index) {
+        return removeElement(index).getElement();
+    }
 
-        if (index == 0) return removeFirst();
-        if (index == size - 1) return removeLast();
+    public Element removeElement(int index) {
+
+        if (index == 0) return removeFirstElement();
+        if (index == size - 1) return removeLastElement();
 
         Element prev = getElement(index - 1);
-        Integer value = prev.next().getElement();
+        Element del = prev.next();
         prev.setNext(prev.next().next());
         size--;
         if (size == 0) {
             first = null;
             last = null;
         }
-        return value;
+        return del;
 
     }
 
-    public Integer removeFirst() {
+    public Object removeFirst() {
 
-        if (size == 0) getElement(0);
-
-        Integer value = first.getElement();
-        first = first.next();
-        size--;
-        if (size == 0) {
-            first = null;
-            last = null;
-        }
-        return value;
+        return removeFirstElement().getElement();
 
     }
 
@@ -143,20 +239,9 @@ public class MyLinkedList {
 
     }
 
-    public Integer removeLast() {
+    public Object removeLast() {
 
-        if (size == 0) getElement(0);
-
-        Integer value = last.getElement();
-        if (size == 1) {
-            first = null;
-            last = null;
-        } else {
-            last = getElement(size - 2);
-            last.setNext(null);
-        }
-        size--;
-        return value;
+        return removeLastElement().getElement();
 
     }
 
@@ -177,27 +262,36 @@ public class MyLinkedList {
 
     }
 
-    /**
-     * изменяет значение элемента
-     */
-    public void set(int index, Integer element) {
-
-        Element el = getElement(index);
-        el.setElement(element);
-
+    public void clear() {
+        first = null;
+        last = null;
+        size = 0;
     }
 
     /**
      * размер списка
      */
+    @Override
     public int size() {
         return size;
+    }
+
+    @Override
+    public Object[] toArray() {
+        Object[] result = new Object[size()];
+        Element prev = getFirstElement();
+        for (int i = 0; i < size(); i++) {
+            result[i] = prev.getElement();
+            prev = prev.next();
+        }
+        return result;
     }
 
     /**
      * поиск индекса по значению
      */
-    public int indexOf(Integer o) {
+    @Override
+    public int indexOf(Object o) {
 
         if (size == 0) return -1;
 
@@ -227,13 +321,38 @@ public class MyLinkedList {
         }
         return "[" + result + "]";
     }
+
+    @Override
+    public void offer(Object e) {
+        addElement(new Element(e, null));
+    }
+
+    @Override
+    public Object peek() {
+        return getFirstElement();
+    }
+
+    @Override
+    public void push(Object e) {
+        addElement(new Element(e, null));
+    }
+
+    @Override
+    public Object pop() {
+        return removeLastElement();
+    }
+
+    @Override
+    public Object poll() {
+        return removeFirstElement();
+    }
 }
 
 class Element {
-    private Integer item;
+    private Object item;
     private Element next;
 
-    public Element(Integer element, Element next) {
+    public Element(Object element, Element next) {
         this.item = element;
         this.next = next;
     }
@@ -254,11 +373,11 @@ class Element {
 
     }
 
-    public Integer getElement() {
+    public Object getElement() {
         return item;
     }
 
-    public void setElement(Integer item) {
+    public void setElement(Object item) {
         this.item = item;
     }
 }
