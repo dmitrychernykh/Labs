@@ -6,6 +6,9 @@ public class MyLinkedList implements MyList, Stack, Queue {
 
     private Element first, last;
 
+    private MyStack stack;
+    private MyQueue queue;
+
     private int size = 0;
 
     MyLinkedList() {
@@ -14,6 +17,21 @@ public class MyLinkedList implements MyList, Stack, Queue {
 
     MyLinkedList(Object... args) {
         addAll(args);
+    }
+
+    private MyStack getStack() {
+        if (stack != null) return stack;
+        return new MyStack(this);
+    }
+
+    private MyQueue getQueue() {
+        if (queue != null) return queue;
+        return new MyQueue(this);
+    }
+
+    @Override
+    public void push(Object e) {
+        getStack().push(new Element(e, null));
     }
 
     /**
@@ -324,27 +342,22 @@ public class MyLinkedList implements MyList, Stack, Queue {
 
     @Override
     public void offer(Object e) {
-        addElement(new Element(e, null));
+        getQueue().offer(new Element(e, null));
     }
 
     @Override
     public Object peek() {
-        return getFirstElement();
-    }
-
-    @Override
-    public void push(Object e) {
-        addElement(new Element(e, null));
-    }
-
-    @Override
-    public Object pop() {
-        return removeLastElement();
+        return getQueue().peek().getElement();
     }
 
     @Override
     public Object poll() {
-        return removeFirstElement();
+        return getQueue().poll().getElement();
+    }
+
+    @Override
+    public Object pop() {
+        return getStack().pop().getElement();
     }
 }
 

@@ -10,6 +10,10 @@ public class MyStack {
         list = new MyLinkedList();
     }
 
+    public MyStack(MyLinkedList newList) {
+        this.list = newList;
+    }
+
     /**
      * поместить элемент в стек
      */

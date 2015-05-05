@@ -10,6 +10,10 @@ public class MyQueue {
         list = new MyLinkedList();
     }
 
+    public MyQueue(MyLinkedList newList) {
+        this.list = newList;
+    }
+
     /**
      * добавить в конец очереди
      */
