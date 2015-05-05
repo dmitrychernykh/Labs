@@ -13,16 +13,19 @@ public class MyCollections {
         if (list.get(0) instanceof Comparable)
             if (list instanceof RandomAccess) qSort(list, 0, list.size() - 1);
             else bubbleSort(list);
-        else {
-            Comparator myComparator = new Comparator() {
-                @Override
-                public int compare(Object o1, Object o2) {//TODO: Comparable check
-                    if (o1 == o2) return 0;
-                    return 1;
-                }
-            };
+        else throw new IllegalArgumentException("MyList instance must be Comparable");
+
+    }
+
+    public static void sort(MyList list, Comparator comparator) {
+        if (list.size() < 2) return;
+
+        if (list.get(0) instanceof Comparable)
             if (list instanceof RandomAccess) qSort(list, 0, list.size() - 1);
-            else bubbleSort(list, myComparator);
+            else bubbleSort(list);
+        else {
+            if (list instanceof RandomAccess) qSort(list, 0, list.size() - 1, comparator);
+            else bubbleSort(list, comparator);
         }
     }
 
@@ -61,6 +64,25 @@ public class MyCollections {
     public static void sort(MyArrayList list) {
         if (list.size() < 2) return;
         qSort(list, 0, list.size() - 1);
+    }
+
+    private static int partition(MyList list, int begin, int end, Comparator comparator) {
+        int index = begin;
+        Integer pivot = (Integer) list.get(index);
+        swap(list, index, end);
+        for (int i = begin; i <= end; ++i) {
+            if (pivot.compareTo((Integer) list.get(i)) > 0) swap(list, index++, i);
+        }
+        swap(list, index, end);
+        return (index);
+    }
+
+    private static void qSort(MyList list, int begin, int end, Comparator comparator) {
+        if (end > begin) {
+            int index = partition(list, begin, end, comparator);
+            qSort(list, begin, index - 1, comparator);
+            qSort(list, index + 1, end, comparator);
+        }
     }
 
     private static int partition(MyList list, int begin, int end) {
