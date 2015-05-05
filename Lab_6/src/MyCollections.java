@@ -1,8 +1,30 @@
+import java.util.Comparator;
+import java.util.RandomAccess;
+
 /**
  * Created by Dmitry Chernykh on 06.04.2015.
  * Poject Labs for EPAM courses
  */
 public class MyCollections {
+
+    public static void sort(MyList list) {
+        if (list.size() < 2) return;
+
+        if (list.get(0) instanceof Comparable)
+            if (list instanceof RandomAccess) qSort(list, 0, list.size() - 1);
+            else bubbleSort(list);
+        else {
+            Comparator myComparator = new Comparator() {
+                @Override
+                public int compare(Object o1, Object o2) {//TODO: Comparable check
+                    if (o1 == o2) return 0;
+                    return 1;
+                }
+            };
+            if (list instanceof RandomAccess) qSort(list, 0, list.size() - 1);
+            else bubbleSort(list, myComparator);
+        }
+    }
 
     public static void sort(MyLinkedList list) {
 
@@ -41,20 +63,18 @@ public class MyCollections {
         qSort(list, 0, list.size() - 1);
     }
 
-    private static int partition(MyArrayList list, int begin, int end) {
+    private static int partition(MyList list, int begin, int end) {
         int index = begin;
         Integer pivot = (Integer) list.get(index);
         swap(list, index, end);
         for (int i = begin; i <= end; ++i) {
-            if (pivot.compareTo((Integer) list.get(i)) > 0) {
-                swap(list, index++, i);
-            }
+            if (pivot.compareTo((Integer) list.get(i)) > 0) swap(list, index++, i);
         }
         swap(list, index, end);
         return (index);
     }
 
-    private static void qSort(MyArrayList list, int begin, int end) {
+    private static void qSort(MyList list, int begin, int end) {
         if (end > begin) {
             int index = partition(list, begin, end);
             qSort(list, begin, index - 1);
@@ -62,13 +82,40 @@ public class MyCollections {
         }
     }
 
-    public static int binarySearch(MyArrayList list, Integer key) {
-        return binarySearch(list, 0, list.size(), key);
+    private static void bubbleSort(MyList list) { //todo: check and test
+        int i = list.size();
+        Object[] arr = list.toArray();
+
+        for (i = list.size(); i > 0; i--) {
+            for (int j = 0; j < (i - 1); j++) {
+                if (((Integer) arr[j]).compareTo(((Integer) arr[j + 1])) > 0) swap(arr, j, j + 1);
+            }
+        }
+
+        list.clear();
+        list.addAll(arr);
     }
 
-    private static int binarySearch(MyArrayList a, int fromIndex, int toIndex, Integer key) {
+    private static void bubbleSort(MyList list, Comparator myComparator) {
+        int i = list.size();
+        Object[] arr = list.toArray();
+
+        for (i = list.size(); i > 0; i--) {
+            for (int j = 0; j < (i - 1); j++)
+                if (myComparator.compare(arr[j], arr[j + 1]) > 0) swap(arr, j, j + 1);
+        }
+
+        list.clear();
+        list.addAll(arr);
+    }
+
+    public static int binarySearch(MyList list, Integer key) {
+        return binarySearch(list, 0, list.size() - 1, key);
+    }
+
+    private static int binarySearch(MyList a, int fromIndex, int toIndex, Integer key) {
         int low = fromIndex;
-        int high = toIndex - 1;
+        int high = toIndex;
 
         if (low > high)
             return -(low + 1);
@@ -82,8 +129,26 @@ public class MyCollections {
                 low = mid + 1;
             else
                 high = mid - 1;
-            return binarySearch(a, low, toIndex, key);
+            return binarySearch(a, low, high, key);
         }
+    }
+
+    public static void swap(MyList list, int i, int j) {
+        if (list == null) return;
+        if (i == j) return;
+        if (i >= list.size() || j >= list.size())
+            throw new IndexOutOfBoundsException("wrong index i:" + i + " or j:" + j);
+
+        if (i > j) {
+            i += j;
+            j = i - j;
+            i = i - j;
+        }
+
+        Object tempForSwap = list.get(j);
+        list.set(j, list.get(i));
+        list.set(i, tempForSwap);
+
     }
 
     public static void swap(MyLinkedList list, int i, int j) {
@@ -138,6 +203,27 @@ public class MyCollections {
 
     }
 
+    public static void swap(Object[] array, int i, int j) {
+        if (array == null) return;
+        if (i == j) return;
+        if (i >= array.length || j >= array.length)
+            throw new IndexOutOfBoundsException("wrong index i:" + i + " or j:" + j);
+
+        Object tempForSwap = array[j];
+        array[j] = array[i];
+        array[i] = tempForSwap;
+
+    }
+
+    public static void copy(MyList dest, MyList src) {
+
+        if (src == null || dest == null) return;
+
+        dest.clear();
+        dest.addAll(src.toArray());
+
+    }
+
     public static void copy(MyLinkedList dest, MyLinkedList src) {
 
         if (src == null || dest == null) return;
@@ -160,6 +246,13 @@ public class MyCollections {
         dest.clear();
         dest.addAll(src.toArray());
 
+    }
+
+
+    public static void reverse(MyList list) {
+        for (int i = 0; i < (list.size() / 2); i++) {
+            swap(list, i, list.size() - 1 - i);
+        }
     }
 
     public static void reverse(MyLinkedList list) {
