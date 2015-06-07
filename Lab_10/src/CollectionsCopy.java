@@ -43,7 +43,7 @@ public class CollectionsCopy {
 
     private void ensureCollection(Collection c) {
         if (c == null)
-            throw new NullPointerException("collection is null");
+            throw new NullPointerException("collection is null!");
     }
 
 }
