@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -17,7 +18,7 @@ public class Producer extends Thread {
     }
 
     private Object[] generateData() {
-        Object[] obj = new Object[20];
+        Object[] obj = new Object[DATA_LENGTH];
         Random r = new Random();
 
         for (int i = 0; i < DATA_LENGTH; i++) {
@@ -32,12 +33,14 @@ public class Producer extends Thread {
             if (buf.put(next)) {
 
                 buf.notifyAll();
-            System.out.println(getName() + " Producer #" + getId() + " wrote: " + next);
-        } else {
+                System.out.println(getName() + " Producer #" + getId() + " wrote: " + next);
+
+            } else {
                 try {
                     System.out.println(getName() + " Producer #" + getId() + " will wait");
                     buf.wait();
                     System.out.println(getName() + " Producer #" + getId() + " woke up");
+                    putToBufferedData(next);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -58,5 +61,13 @@ public class Producer extends Thread {
             }
         }
         System.out.println(getName() + " Producer #" + getId() + " finished.");
+    }
+
+    @Override
+    public String toString() {
+        return "Producer{" +
+                "generatedData=" + Arrays.toString(generatedData) +
+                ", readIndex=" + readIndex +
+                '}';
     }
 }
