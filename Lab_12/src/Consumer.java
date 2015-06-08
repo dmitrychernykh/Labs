@@ -20,23 +20,21 @@ public class Consumer extends Thread {
     public void getBufferedData() {
         Object next;
         synchronized (buf) {
-            if ((next = buf.get()) != null) {
-                buf.notifyAll();
-                System.out.println(getName() + " Consumer #" + getId() + " read: " + next);
-            } else {
+            if ((next = buf.get()) == null) {
                 try {
                     System.out.println(getName() + " Consumer #" + getId() + " will wait");
-                    buf.wait();
+                    buf.wait(1000);
                     System.out.println(getName() + " Consumer #" + getId() + " woke up");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 return;
             }
+            buf.notifyAll();
         }
 
+        System.out.println(getName() + " #" + getId() + " read: " + next + " size: " + nextIndex);
         dataResult[nextIndex++] = next;
-        System.out.println(getName() + " Consumer #" + getId() + " read: " + next);
     }
 
     @Override
