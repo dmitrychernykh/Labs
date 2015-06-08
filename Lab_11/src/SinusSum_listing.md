@@ -1,4 +1,4 @@
-'''
+```
 Tread #12 was started
 Tread12 was finished; result: 2.9587000000000003
 Tread #13 was started
@@ -20,4 +20,4 @@ Tread18 was finished; result: 16.8518
 Tread #20 was started
 Tread20 was finished; result: 8.586399999999998
 SUM = 0,0000
-'''
+```
