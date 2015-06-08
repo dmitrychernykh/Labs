@@ -1,5 +1,4 @@
-'''
-"C:\Program Files\Java\jdk1.8.0_31\bin\java" -Didea.launcher.port=7543 "-Didea.launcher.bin.path=C:\Program Files (x86)\JetBrains\IntelliJ IDEA Community Edition 14.0.3\bin" -Dfile.encoding=UTF-8 -classpath "C:\Program Files\Java\jdk1.8.0_31\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_31\jre\lib\deploy.jar;C:\Program Files\Java\jdk1.8.0_31\jre\lib\javaws.jar;C:\Program Files\Java\jdk1.8.0_31\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_31\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_31\jre\lib\jfxswt.jar;C:\Program Files\Java\jdk1.8.0_31\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_31\jre\lib\management-agent.jar;C:\Program Files\Java\jdk1.8.0_31\jre\lib\plugin.jar;C:\Program Files\Java\jdk1.8.0_31\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_31\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_31\jre\lib\ext\access-bridge-64.jar;C:\Program Files\Java\jdk1.8.0_31\jre\lib\ext\cldrdata.jar;C:\Program Files\Java\jdk1.8.0_31\jre\lib\ext\dnsns.jar;C:\Program Files\Java\jdk1.8.0_31\jre\lib\ext\jaccess.jar;C:\Program Files\Java\jdk1.8.0_31\jre\lib\ext\jfxrt.jar;C:\Program Files\Java\jdk1.8.0_31\jre\lib\ext\localedata.jar;C:\Program Files\Java\jdk1.8.0_31\jre\lib\ext\nashorn.jar;C:\Program Files\Java\jdk1.8.0_31\jre\lib\ext\sunec.jar;C:\Program Files\Java\jdk1.8.0_31\jre\lib\ext\sunjce_provider.jar;C:\Program Files\Java\jdk1.8.0_31\jre\lib\ext\sunmscapi.jar;C:\Program Files\Java\jdk1.8.0_31\jre\lib\ext\sunpkcs11.jar;C:\Program Files\Java\jdk1.8.0_31\jre\lib\ext\zipfs.jar;C:\Users\Alice\IdeaProjects\Labs\out\production\Lab_12;C:\Program Files (x86)\JetBrains\IntelliJ IDEA Community Edition 14.0.3\lib\junit-4.11.jar;C:\Program Files (x86)\JetBrains\IntelliJ IDEA Community Edition 14.0.3\lib\hamcrest-core-1.3.jar;C:\Program Files (x86)\JetBrains\IntelliJ IDEA Community Edition 14.0.3\lib\hamcrest-library-1.3.jar;C:\Program Files (x86)\JetBrains\IntelliJ IDEA Community Edition 14.0.3\lib\idea_rt.jar" com.intellij.rt.execution.application.AppMain ActionRunner
+```
 Producer #2 Producer #12 started.
 Producer #2 Producer #12 wrote: 435
 Consumer #10 started.
@@ -223,5 +222,4 @@ Consumer #10 finished.
 [435, 203, 390, 601, 270, 985, 146, 36, 687, 499, 437, 729, 94, 78, 86, 766, 226, 812, 335, 267, 789, 904, 612, 210, 559, 423, 812, 489, 290, 108, 143, 909, 370, 299, 285, 792, 328, 146, 678, 796, 112, 400, 264, 615, 681, 218, 935, 80, 230, 450, 31, 676, 925, 234, 244, 184, 913, 905, 588, 185]
 
 Process finished with exit code 0
-
-'''
+```
