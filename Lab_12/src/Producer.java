@@ -6,23 +6,58 @@ import java.util.Random;
  */
 public class Producer extends Thread {
 
+    static final int DATA_LENGTH = 20;
+    Object[] generatedData = generateData();
+    int readIndex = 0;
+
     private CircledBuffer buf;
 
     Producer(CircledBuffer buffer) {
         buf = buffer;
     }
 
+    private Object[] generateData() {
+        Object[] obj = new Object[20];
+        Random r = new Random();
+
+        for (int i = 0; i < DATA_LENGTH; i++) {
+            Integer next = Integer.valueOf(r.nextInt(1000));
+            obj[i] = next;
+        }
+        return obj;
+    }
+
     public void putToBufferedData(Object next) {
-        buf.put(next);
-        System.out.println("Producer wrote: " + next);
+        if (buf.put(next)) {
+            synchronized (buf) {
+                buf.notifyAll();
+            }
+            System.out.println(getName() + " Producer #" + getId() + " wrote: " + next);
+        } else {
+            try {
+                System.out.println(getName() + " Producer #" + getId() + " will wait");
+                synchronized (buf) {
+                    buf.wait();
+                }
+                System.out.println(getName() + " Producer #" + getId() + " woke up");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     @Override
     public void run() {
-        Random r = new Random();
-        while (Consumer.inWork) {
-            Integer next = Integer.valueOf(r.nextInt(1000));
-            putToBufferedData(next);
+        System.out.println(getName() + " Producer #" + getId() + " started.");
+        while (readIndex < DATA_LENGTH) {
+            putToBufferedData(generatedData[readIndex++]);
+            try {
+                sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+        System.out.println(getName() + " Producer #" + getId() + " finished.");
     }
 }

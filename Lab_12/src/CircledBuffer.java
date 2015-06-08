@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Created by Dmitry Chernykh on 07.06.2015.
  * Poject Labs for EPAM courses
@@ -39,20 +41,15 @@ public class CircledBuffer {
      *
      * @param o new element
      */
-    public synchronized void put(Object o) {
+    public synchronized boolean put(Object o) {
 //        if (isFull()) throw new IllegalStateException("buffer is full");
-        if (isFull())
-            try {
-                System.out.println("Thread put() will wait");
-                wait();
-                System.out.println("Thread put() woke up");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        if (isFull()) return false;
+
         buf[writePoint++] = o;
         if (writePoint == BUFFSIZE) writePoint = 0;
         size++;
-        if (isEmpty()) notifyAll();
+
+        return true;
     }
 
     /**
@@ -60,18 +57,20 @@ public class CircledBuffer {
      */
     public synchronized Object get() {
 //        if (isEmpty()) throw new IllegalStateException("buffer is empty");
-        if (isEmpty())
-            try {
-                System.out.println("Thread get() will wait");
-                wait();
-                System.out.println("Thread get() woke up");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        if (isEmpty()) return null;
+
         Object next = buf[readPoint++];
+
         if (readPoint == BUFFSIZE) readPoint = 0;
         size--;
-        if (isFull()) notifyAll();
         return next;
+    }
+
+    @Override
+    public String toString() {
+        return "Buffer {" +
+                "buf=" + Arrays.toString(buf) +
+                ", size=" + size +
+                '}';
     }
 }

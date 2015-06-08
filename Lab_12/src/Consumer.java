@@ -4,7 +4,6 @@
  */
 public class Consumer extends Thread {
 
-    static boolean inWork = false;
     private final Object[] dataResult;
     private CircledBuffer buf;
     private int nextIndex = 0;
@@ -18,21 +17,41 @@ public class Consumer extends Thread {
         return dataResult;
     }
 
-    public Object getBufferedData() {
+    public void getBufferedData() {
         Object next;
-        next = buf.get();
-        System.out.println("Consumer read: " + next);
-        return next;
+        if ((next = buf.get()) != null) {
+            synchronized (buf) {
+                buf.notifyAll();
+            }
+            System.out.println(getName() + " Consumer #" + getId() + " wrote: " + next);
+        } else {
+            try {
+                System.out.println(getName() + " Consumer #" + getId() + " will wait");
+                synchronized (buf) {
+                    buf.wait();
+                }
+                System.out.println(getName() + " Consumer #" + getId() + " woke up");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+
+        dataResult[nextIndex++] = next;
+        System.out.println(getName() + " Consumer #" + getId() + " read: " + next);
     }
 
     @Override
     public void run() {
-        inWork = true;
-        buf.notifyAll();
+        System.out.println("Consumer #" + getId() + " started.");
         while (nextIndex < dataResult.length) {
-            dataResult[nextIndex++] = getBufferedData();
+            getBufferedData();
+            try {
+                sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        inWork = false;
-        buf.notifyAll();
+        System.out.println("Consumer #" + getId() + " finished.");
     }
 }
