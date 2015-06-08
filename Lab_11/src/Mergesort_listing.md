@@ -1,4 +1,4 @@
-'''
+```
 [21, 32, 4, 5, 6, 123, 51, 53, 62, 63, 7, 88, 96, 2]
 Worker1 #10 started
 Worker2 #10 started
@@ -21,4 +21,4 @@ Worker2 #26 started
 Worker1 #28 started
 Worker2 #28 started
 [2, 4, 5, 6, 7, 21, 32, 51, 53, 62, 63, 88, 96, 123]
-'''
+```
