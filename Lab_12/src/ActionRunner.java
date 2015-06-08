@@ -12,8 +12,11 @@ public class ActionRunner {
 //        int c_count = 1; //how many consumers will work
         CircledBuffer buffer = new CircledBuffer(8);
         Consumer firstConsumer = new Consumer(buffer, Producer.DATA_LENGTH * p_count);
+        firstConsumer.setName("Consumer");
         for (int i = 0; i < p_count; i++) {
-            new Producer(buffer).start();
+            Producer p = new Producer(buffer);
+            p.setName("Producer #" + (i + 1));
+            p.start();
         }
         firstConsumer.start();
         firstConsumer.join();

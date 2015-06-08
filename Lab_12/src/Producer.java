@@ -28,20 +28,19 @@ public class Producer extends Thread {
     }
 
     public void putToBufferedData(Object next) {
-        if (buf.put(next)) {
-            synchronized (buf) {
+        synchronized (buf) {
+            if (buf.put(next)) {
+
                 buf.notifyAll();
-            }
             System.out.println(getName() + " Producer #" + getId() + " wrote: " + next);
         } else {
-            try {
-                System.out.println(getName() + " Producer #" + getId() + " will wait");
-                synchronized (buf) {
+                try {
+                    System.out.println(getName() + " Producer #" + getId() + " will wait");
                     buf.wait();
+                    System.out.println(getName() + " Producer #" + getId() + " woke up");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                System.out.println(getName() + " Producer #" + getId() + " woke up");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
         }
 
